@@ -1,20 +1,10 @@
 {
     "effects": [
-        "scanlines",
-        "wave",
-        "noise",
-        "chromatic",
-        "blur",
-        "rotate",
-        "gradient",
-        "particles",
-        "shake",
-        "glitch"
     ],
-    "ads": true,
-    "play_music": true,
+    "ads": false,
+    "play_music": false,
     "media_folder": "media/",
-    "font": "arialblack",
-    "can_shake": true,
+    "font": "couriernew",
+    "can_shake": false,
     "background": ""
 }
