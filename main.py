@@ -5,43 +5,6 @@ import time
 import random
 import json
 
-packages = {
-    "pygame": "pygame",
-    "pyperclip": "pyperclip",
-    "numpy": "numpy",
-    "imageio": "imageio",
-    "pyvidplayer2": "pyvidplayer2",
-}
-
-try:
-    os.system("winget install ffmpeg")
-except:
-    pass
-
-try:
-    os.system(f"{sys.executable} -m pip install ffmpeg")
-except:
-    pass
-
-try:
-    os.system(f"{sys.executable} -m pip install imageio[ffmpeg]")
-except:
-    pass
-
-try:
-    os.system(f"{sys.executable} -m pip install imageio[pyav]")
-except:
-    pass
-
-for package_name, module_name in packages.items():
-    try:
-        __import__(module_name)
-    except ImportError:
-        print(f"Module '{module_name}' absent")
-        os.system(f"{sys.executable} -m pip install {package_name}")
-        print(f"Installation de '{package_name}' terminée.")
-
-
 import pygame as pg
 from pyvidplayer2 import Video
 from textengine import TextEngine
