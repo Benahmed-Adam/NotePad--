@@ -21,19 +21,19 @@ def print_warning(msg):
     print(f"{Colors.WARNING}[WARNING]{Colors.RESET} {msg}")
 
 def print_error(msg):
-    print(f"{Colors.ERROR}[ERREUR]{Colors.RESET} {msg}")
+    print(f"{Colors.ERROR}[ERROR]{Colors.RESET} {msg}")
 
 def run_cmd(cmd, shell=False):
     try:
         subprocess.check_call(cmd, shell=shell)
         return True
     except subprocess.CalledProcessError as e:
-        print_error(f"Commande échouée: {' '.join(cmd) if isinstance(cmd, list) else cmd}\n{e}")
+        print_error(f"Command failed: {' '.join(cmd) if isinstance(cmd, list) else cmd}\n{e}")
         return False
 
 def install_system_dependencies():
     system = platform.system()
-    print_info(f"Détection système : {system}")
+    print_info(f"System detected: {system}")
 
     if system == "Linux":
         pkg_cmd = None
@@ -51,55 +51,55 @@ def install_system_dependencies():
             pkg_mgr = "zypper"
             pkg_cmd = ["sudo", "zypper", "install", "-y", "portaudio-devel"]
         else:
-            print_warning("Gestionnaire de paquets Linux non supporté ou introuvable.")
-            print_warning("Veuillez installer manuellement 'portaudio' (ex: portaudio19-dev, portaudio-devel).")
+            print_warning("Unsupported or unknown Linux package manager.")
+            print_warning("Please install 'portaudio' manually (e.g., portaudio19-dev, portaudio-devel).")
             return False
 
-        print_info(f"Installation de 'portaudio' via {pkg_mgr}...")
-        confirmation = input(f"Voulez-vous exécuter : {' '.join(pkg_cmd)} ? [o/N] ").strip().lower()
-        if confirmation == "o":
+        print_info(f"Installing 'portaudio' via {pkg_mgr}...")
+        confirmation = input(f"Do you want to execute: {' '.join(pkg_cmd)} ? [y/N] ").strip().lower()
+        if confirmation == "y":
             if not run_cmd(pkg_cmd):
                 return False
         else:
-            print_warning("Installation des dépendances système annulée par l'utilisateur.")
+            print_warning("System dependency installation aborted by user.")
             return False
 
     elif system == "Darwin":
         if shutil.which("brew") is None:
-            print_warning("Homebrew non trouvé. Veuillez installer Homebrew : https://brew.sh/")
+            print_warning("Homebrew not found. Please install Homebrew: https://brew.sh/")
             return False
         brew_cmd = ["brew", "install", "portaudio"]
-        print_info("Installation de 'portaudio' via Homebrew...")
-        confirmation = input(f"Voulez-vous exécuter : {' '.join(brew_cmd)} ? [o/N] ").strip().lower()
-        if confirmation == "o":
+        print_info("Installing 'portaudio' via Homebrew...")
+        confirmation = input(f"Do you want to execute: {' '.join(brew_cmd)} ? [y/N] ").strip().lower()
+        if confirmation == "y":
             if not run_cmd(brew_cmd):
                 return False
         else:
-            print_warning("Installation des dépendances système annulée par l'utilisateur.")
+            print_warning("System dependency installation aborted by user.")
             return False
 
     elif system == "Windows":
-        print_info("Sous Windows, il faut installer manuellement 'ffmpeg' et les dépendances nécessaires.")
-        print_info("Téléchargez et installez ffmpeg depuis : https://ffmpeg.org/download.html")
-        print_info("Assurez-vous que ffmpeg est accessible dans votre PATH.")
+        print_info("On Windows, 'ffmpeg' and other dependencies must be installed manually.")
+        print_info("Download and install ffmpeg from: https://ffmpeg.org/download.html")
+        print_info("Make sure ffmpeg is added to your PATH.")
         return False
 
     else:
-        print_warning("OS non reconnu. Veuillez installer manuellement les dépendances nécessaires.")
+        print_warning("Unrecognized OS. Please install the necessary dependencies manually.")
         return False
 
     return True
 
 def install_python_packages():
     try:
-        print_info("Mise à jour de pip...")
+        print_info("Upgrading pip...")
         run_cmd([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-        print_info("Installation des paquets Python depuis requirements.txt...")
+        print_info("Installing Python packages from requirements.txt...")
         run_cmd([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
-        print_success("Paquets Python installés avec succès.")
+        print_success("Python packages installed successfully.")
         return True
     except Exception as e:
-        print_error(f"Erreur lors de l'installation des paquets Python : {e}")
+        print_error(f"Error during Python package installation: {e}")
         return False
 
 def check_modules():
@@ -113,19 +113,17 @@ def check_modules():
     return missing
 
 def launch_main():
-    print_info(f"Lancement de main.py")
+    print_info("Launching main.py")
     import main
 
 if __name__ == "__main__":
     missing_modules = check_modules()
     if missing_modules:
-        print_warning(f"Modules Python manquants détectés : {', '.join(missing_modules)}")
+        print_warning(f"Missing Python modules detected: {', '.join(missing_modules)}")
         if not install_system_dependencies():
-            print_error("Impossible d'installer les dépendances système. Abandon.")
+            print_error("Failed to install system dependencies. Exiting.")
             sys.exit(1)
         if not install_python_packages():
-            print_error("Impossible d'installer les paquets Python. Abandon.")
+            print_error("Failed to install Python packages. Exiting.")
             sys.exit(1)
-    else:
-        print_success("Tous les modules Python requis sont installés.")
     launch_main()
