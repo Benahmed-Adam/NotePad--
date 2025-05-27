@@ -29,29 +29,28 @@ def install_requirements():
     if os.name == "posix":
         if shutil.which("apt-get"):
             pkg_mgr = "apt-get"
-            install_cmd = ["sudo", "apt-get", "install", "-y", "portaudio19-dev"]
+            cmd = "sudo apt-get install -y portaudio19-dev"
         elif shutil.which("dnf"):
             pkg_mgr = "dnf"
-            install_cmd = ["sudo", "dnf", "install", "-y", "portaudio-devel"]
+            cmd = "sudo dnf install -y portaudio-devel"
         elif shutil.which("pacman"):
             pkg_mgr = "pacman"
-            install_cmd = ["sudo", "pacman", "-S", "--noconfirm", "portaudio"]
+            cmd = "sudo pacman -S --noconfirm portaudio"
         elif shutil.which("zypper"):
             pkg_mgr = "zypper"
-            install_cmd = ["sudo", "zypper", "install", "-y", "portaudio-devel"]
+            cmd = "sudo zypper install -y portaudio-devel"
         else:
-            print_warning("Gestionnaire de paquets Linux non supporté ou introuvable. Installez portaudio manuellement.")
-            return
-
-        try:
-            print_info(f"Installation de portaudio via {pkg_mgr}...")
-            subprocess.check_call(install_cmd)
-            print_success("PortAudio installé avec succès.")
-        except subprocess.CalledProcessError:
-            print_warning(f"Échec de l'installation de PortAudio via {pkg_mgr}. Installez-le manuellement.")
-    elif os.name == "nt":
-        print_info("Assurez-vous que ffmpeg est installé et dans le PATH.")
+            print_warning("Gestionnaire de paquets Linux non supporté ou introuvable. Veuillez installer 'portaudio' manuellement.")
+            sys.exit()
+        print_info(f"Pour installer PortAudio, exécutez la commande suivante :\n  {cmd}")
         sys.exit()
+    elif os.name == "nt":
+        print_info("Sous Windows, veuillez installer manuellement 'ffmpeg' et les dépendances nécessaires.")
+        sys.exit()
+    else:
+        print_warning("OS non reconnu. Veuillez installer manuellement les dépendances nécessaires.")
+        sys.exit()
+    
 
     try:
         print_info("Mise à jour de pip...")
