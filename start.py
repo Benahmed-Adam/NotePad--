@@ -3,27 +3,13 @@ import sys
 import shutil
 import platform
 
-try:
-    from colorama import init as colorama_init, Fore, Style
-    colorama_init()
-except ImportError:
-    class FallbackColors:
-        HEADER = '\033[95m'
-        INFO = '\033[94m'
-        SUCCESS = '\033[92m'
-        WARNING = '\033[93m'
-        ERROR = '\033[91m'
-        RESET = '\033[0m'
-    Fore = FallbackColors()
-    Style = FallbackColors()
-
 class Colors:
-    HEADER = Fore.MAGENTA
-    INFO = Fore.BLUE
-    SUCCESS = Fore.GREEN
-    WARNING = Fore.YELLOW
-    ERROR = Fore.RED
-    RESET = Style.RESET_ALL
+    HEADER = '\033[95m'
+    INFO = '\033[94m'
+    SUCCESS = '\033[92m'
+    WARNING = '\033[93m'
+    ERROR = '\033[91m'
+    RESET = '\033[0m'
 
 def print_info(msg):
     print(f"{Colors.INFO}[INFO]{Colors.RESET} {msg}")
