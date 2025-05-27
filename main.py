@@ -4,7 +4,6 @@ import threading
 import time
 import random
 import json
-
 import pygame as pg
 from pyvidplayer2 import Video
 from textengine import TextEngine
@@ -163,8 +162,7 @@ class Main:
         except KeyboardInterrupt:
             self.running = False
 
-if __name__ == "__main__":
-    pg.init()
-    pg.key.set_repeat(300, 30)
-    main = Main((1200, 800))
-    main.run()
+pg.init()
+pg.key.set_repeat(300, 30)
+main = Main((1200, 800))
+main.run()

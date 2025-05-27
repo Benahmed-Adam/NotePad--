@@ -5,6 +5,6 @@
     "play_music": false,
     "media_folder": "media/",
     "font": "couriernew",
-    "can_shake": false,
+    "can_shake": true,
     "background": ""
 }
