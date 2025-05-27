@@ -1,10 +1,11 @@
 {
     "effects": [
+        "shake"
     ],
     "ads": false,
     "play_music": false,
     "media_folder": "media/",
     "font": "couriernew",
-    "can_shake": true,
+    "can_shake": false,
     "background": ""
 }
