@@ -1,15 +1,29 @@
 import subprocess
 import sys
-import os
 import shutil
+import platform
+
+try:
+    from colorama import init as colorama_init, Fore, Style
+    colorama_init()
+except ImportError:
+    class FallbackColors:
+        HEADER = '\033[95m'
+        INFO = '\033[94m'
+        SUCCESS = '\033[92m'
+        WARNING = '\033[93m'
+        ERROR = '\033[91m'
+        RESET = '\033[0m'
+    Fore = FallbackColors()
+    Style = FallbackColors()
 
 class Colors:
-    HEADER = '\033[95m'
-    INFO = '\033[94m'
-    SUCCESS = '\033[92m'
-    WARNING = '\033[93m'
-    ERROR = '\033[91m'
-    RESET = '\033[0m'
+    HEADER = Fore.MAGENTA
+    INFO = Fore.BLUE
+    SUCCESS = Fore.GREEN
+    WARNING = Fore.YELLOW
+    ERROR = Fore.RED
+    RESET = Style.RESET_ALL
 
 def print_info(msg):
     print(f"{Colors.INFO}[INFO]{Colors.RESET} {msg}")
@@ -23,44 +37,84 @@ def print_warning(msg):
 def print_error(msg):
     print(f"{Colors.ERROR}[ERREUR]{Colors.RESET} {msg}")
 
-def install_requirements():
-    print_info("Installation des dépendances système et Python...")
+def run_cmd(cmd, shell=False):
+    try:
+        subprocess.check_call(cmd, shell=shell)
+        return True
+    except subprocess.CalledProcessError as e:
+        print_error(f"Commande échouée: {' '.join(cmd) if isinstance(cmd, list) else cmd}\n{e}")
+        return False
 
-    if os.name == "posix":
+def install_system_dependencies():
+    system = platform.system()
+    print_info(f"Détection système : {system}")
+
+    if system == "Linux":
+        pkg_cmd = None
+        pkg_mgr = None
         if shutil.which("apt-get"):
             pkg_mgr = "apt-get"
-            cmd = "sudo apt-get install -y portaudio19-dev"
+            pkg_cmd = ["sudo", "apt-get", "install", "-y", "portaudio19-dev"]
         elif shutil.which("dnf"):
             pkg_mgr = "dnf"
-            cmd = "sudo dnf install -y portaudio-devel"
+            pkg_cmd = ["sudo", "dnf", "install", "-y", "portaudio-devel"]
         elif shutil.which("pacman"):
             pkg_mgr = "pacman"
-            cmd = "sudo pacman -S --noconfirm portaudio"
+            pkg_cmd = ["sudo", "pacman", "-S", "--noconfirm", "portaudio"]
         elif shutil.which("zypper"):
             pkg_mgr = "zypper"
-            cmd = "sudo zypper install -y portaudio-devel"
+            pkg_cmd = ["sudo", "zypper", "install", "-y", "portaudio-devel"]
         else:
-            print_warning("Gestionnaire de paquets Linux non supporté ou introuvable. Veuillez installer 'portaudio' manuellement.")
-            sys.exit()
-        print_info(f"Pour installer PortAudio, exécutez la commande suivante :\n  {cmd}")
-        sys.exit()
-    elif os.name == "nt":
-        print_info("Sous Windows, veuillez installer manuellement 'ffmpeg' et les dépendances nécessaires.")
-        sys.exit()
+            print_warning("Gestionnaire de paquets Linux non supporté ou introuvable.")
+            print_warning("Veuillez installer manuellement 'portaudio' (ex: portaudio19-dev, portaudio-devel).")
+            return False
+
+        print_info(f"Installation de 'portaudio' via {pkg_mgr}...")
+        confirmation = input(f"Voulez-vous exécuter : {' '.join(pkg_cmd)} ? [o/N] ").strip().lower()
+        if confirmation == "o":
+            if not run_cmd(pkg_cmd):
+                return False
+        else:
+            print_warning("Installation des dépendances système annulée par l'utilisateur.")
+            return False
+
+    elif system == "Darwin":
+        if shutil.which("brew") is None:
+            print_warning("Homebrew non trouvé. Veuillez installer Homebrew : https://brew.sh/")
+            return False
+        brew_cmd = ["brew", "install", "portaudio"]
+        print_info("Installation de 'portaudio' via Homebrew...")
+        confirmation = input(f"Voulez-vous exécuter : {' '.join(brew_cmd)} ? [o/N] ").strip().lower()
+        if confirmation == "o":
+            if not run_cmd(brew_cmd):
+                return False
+        else:
+            print_warning("Installation des dépendances système annulée par l'utilisateur.")
+            return False
+
+    elif system == "Windows":
+        print_info("Sous Windows, il faut installer manuellement 'ffmpeg' et les dépendances nécessaires.")
+        print_info("Téléchargez et installez ffmpeg depuis : https://ffmpeg.org/download.html")
+        print_info("Assurez-vous que ffmpeg est accessible dans votre PATH.")
+        return False
+
     else:
         print_warning("OS non reconnu. Veuillez installer manuellement les dépendances nécessaires.")
-        sys.exit()
-    
+        return False
 
+    return True
+
+def install_python_packages():
     try:
         print_info("Mise à jour de pip...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
-        print_info("Installation des paquets depuis requirements.txt...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        run_cmd([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
+        print_info("Installation des paquets Python depuis requirements.txt...")
+        run_cmd([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
         print_success("Paquets Python installés avec succès.")
-    except subprocess.CalledProcessError as e:
-        print_error(f"Échec lors de l'installation des paquets Python: {e}")
-        sys.exit(1)
+        return True
+    except Exception as e:
+        print_error(f"Erreur lors de l'installation des paquets Python : {e}")
+        return False
 
 def check_modules():
     required_modules = ["pygame", "pyvidplayer2", "imageio_ffmpeg"]
@@ -73,22 +127,24 @@ def check_modules():
     return missing
 
 def launch_main():
-    for cmd in ["python", "python3"]:
-        try:
-            print_info(f"Lancement de main.py avec {cmd}...")
-            subprocess.check_call([cmd, "main.py"])
-            print_success("main.py exécuté avec succès.")
-            return
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            continue
-    print_error("Impossible de lancer main.py avec python ou python3.")
-    sys.exit(1)
+    print_info(f"Lancement de main.py avec l'interpréteur {sys.executable} ...")
+    try:
+        subprocess.check_call([sys.executable, "main.py"])
+        print_success("main.py exécuté avec succès.")
+    except subprocess.CalledProcessError as e:
+        print_error(f"Échec lors de l'exécution de main.py : {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     missing_modules = check_modules()
     if missing_modules:
-        print_warning(f"Modules manquants détectés : {', '.join(missing_modules)}")
-        install_requirements()
+        print_warning(f"Modules Python manquants détectés : {', '.join(missing_modules)}")
+        if not install_system_dependencies():
+            print_error("Impossible d'installer les dépendances système. Abandon.")
+            sys.exit(1)
+        if not install_python_packages():
+            print_error("Impossible d'installer les paquets Python. Abandon.")
+            sys.exit(1)
     else:
-        print_success("Tous les modules requis sont installés.")
+        print_success("Tous les modules Python requis sont installés.")
     launch_main()
