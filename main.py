@@ -13,6 +13,26 @@ packages = {
     "pyvidplayer2": "pyvidplayer2",
 }
 
+try:
+    os.system("winget install ffmpeg")
+except:
+    pass
+
+try:
+    os.system(f"{sys.executable} -m pip install ffmpeg")
+except:
+    pass
+
+try:
+    os.system(f"{sys.executable} -m pip install imageio[ffmpeg]")
+except:
+    pass
+
+try:
+    os.system(f"{sys.executable} -m pip install imageio[pyav]")
+except:
+    pass
+
 for package_name, module_name in packages.items():
     try:
         __import__(module_name)
