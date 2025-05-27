@@ -1,8 +1,6 @@
 {
-    "effects": [
-        "shake"
-    ],
-    "ads": false,
+    "effects": [],
+    "ads": true,
     "play_music": false,
     "media_folder": "media/",
     "font": "couriernew",
