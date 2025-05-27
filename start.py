@@ -127,13 +127,8 @@ def check_modules():
     return missing
 
 def launch_main():
-    print_info(f"Lancement de main.py avec l'interpréteur {sys.executable} ...")
-    try:
-        subprocess.check_call([sys.executable, "main.py"])
-        print_success("main.py exécuté avec succès.")
-    except subprocess.CalledProcessError as e:
-        print_error(f"Échec lors de l'exécution de main.py : {e}")
-        sys.exit(1)
+    print_info(f"Lancement de main.py")
+    import main
 
 if __name__ == "__main__":
     missing_modules = check_modules()
