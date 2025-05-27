@@ -1,6 +1,6 @@
 {
     "effects": [],
-    "ads": true,
+    "ads": false,
     "play_music": false,
     "media_folder": "media/",
     "font": "couriernew",

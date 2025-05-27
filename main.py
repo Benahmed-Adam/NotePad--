@@ -119,7 +119,7 @@ class Main:
                 pg.display.update()
 
     def resize(self, width: int, height: int, video: Video):
-        self.screen_size = [width, height]
+        self.screen_size = [max(width, 300), max(height, 168)]
         self.window = pg.display.set_mode(self.screen_size, pg.RESIZABLE)
         self.text_engine.screen = pg.Surface(self.screen_size)
         self.text_engine.effects.canvas_size = self.screen_size

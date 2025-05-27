@@ -3,7 +3,7 @@
 NotePad-- est un éditeur de haute qualité écrit en Python à l'aide `pygame`et `pyvidplayer2`. Il est conçu pour redéfinir la façon dont on écrit du texte. 
 Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 
-## Table des matières
+## Sommaire
 
 - [Fonctionnalités](#fonctionnalités)
 - [Dépendances](#dépendances)
@@ -20,7 +20,7 @@ Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 - Interface graphique via `pygame`
 - Support de la lecture vidéo/audio intégrée via `pyvidplayer2`
 - Détection automatique des modules manquants
-- Installation automatique des dépendances système (`portaudio`, etc.)
+- Installation automatique des dépendances système (`portaudio`, etc...)
 
 ## Dépendances
 

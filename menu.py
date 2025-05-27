@@ -14,8 +14,7 @@ class Menu:
         self.main = main
 
     def _handle_resize(self, event):
-        width, height = event.w, event.h
-        self.main.resize(width, height, None)
+        self.main.resize(event.w, event.h, None)
 
     def _draw_message(self, message: str, y_offset: int = 140, color=(255, 255, 0)):
         if message:
