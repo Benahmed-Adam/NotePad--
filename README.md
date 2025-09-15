@@ -13,7 +13,7 @@ Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 - [Compatibilité Système](#compatibilité-système)
 
 ## Exemple
-<video src="assets/demo.mp4" controls width="600"></video>
+[Voir la vidéo](exemple/video1.mp4)
 
 ## Fonctionnalités
 
