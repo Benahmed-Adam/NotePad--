@@ -1,6 +1,13 @@
 {
-    "effects": [],
-    "ads": false,
+    "effects": [
+        "wave",
+        "scanlines",
+        "blur",
+        "glitch",
+        "chromatic",
+        "particles"
+    ],
+    "ads": true,
     "play_music": false,
     "media_folder": "media/",
     "font": "couriernew",

@@ -63,7 +63,7 @@ class Main:
     def _popups_thread(self):
         while self.running:
             time.sleep(0.1)
-            if self.ads and len(self.popups) < 10 and random.randint(0, 300) == 69:
+            if self.ads and len(self.popups) < 10 and random.randint(0, 100) == 69:
                 max_x = max(0, self.screen_size[0] - 300)
                 max_y = max(0, self.screen_size[1] - 300)
                 pos = (random.randint(0, max_x), random.randint(0, max_y))

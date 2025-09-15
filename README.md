@@ -14,6 +14,9 @@ Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 - [Licence](#licence)
 - [Contact](#contact)
 
+## Exemple
+[Voir la vidéo](exemple/video1.mp4)
+
 ## Fonctionnalités
 
 - Édition de texte simple et rapide
