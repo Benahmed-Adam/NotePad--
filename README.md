@@ -11,8 +11,6 @@ Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 - [Utilisation](#utilisation)
 - [Structure du projet](#structure-du-projet)
 - [Compatibilité Système](#compatibilité-système)
-- [Licence](#licence)
-- [Contact](#contact)
 
 ## Exemple
 [Voir la vidéo](exemple/video1.mp4)
@@ -22,8 +20,6 @@ Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
 - Édition de texte simple et rapide
 - Interface graphique via `pygame`
 - Support de la lecture vidéo/audio intégrée via `pyvidplayer2`
-- Détection automatique des modules manquants
-- Installation automatique des dépendances système (`portaudio`, etc...)
 
 ## Dépendances
 
@@ -74,12 +70,3 @@ Une fois `main.py` lancé (automatiquement ou manuellement), l'éditeur de texte
 
 ## Compatibilité système
 C'est censé marcher un peu partout...
-
-## Licence
-
-Ce projet est distribué sous la licence GPL-3.0 license. Voir le fichier [license](LICENSE) pour plus d'informations.
-
-## Contact
-
-- Auteur : Benahmed Adam
-- Github :  https://github.com/Benahmed-Adam
