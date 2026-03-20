@@ -1,72 +1,79 @@
 # NotePad--
 
-NotePad-- est un éditeur de haute qualité écrit en Python à l'aide `pygame`et `pyvidplayer2`. Il est conçu pour redéfinir la façon dont on écrit du texte. 
-Avec NotePad--, écrire du texte n'aura jamais été aussi épique.
+NotePad-- is a high-quality editor written in Python using `pygame` and `pyvidplayer2`. It is designed to redefine the way you write text.
+With NotePad--, writing text has never been this epic.
 
-## Sommaire
+## Table of Contents
 
-- [Fonctionnalités](#fonctionnalités)
-- [Dépendances](#dépendances)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Structure du projet](#structure-du-projet)
-- [Compatibilité Système](#compatibilité-système)
+  - [Features](https://www.google.com/search?q=%23features)
+  - [Dependencies](https://www.google.com/search?q=%23dependencies)
+  - [Installation](https://www.google.com/search?q=%23installation)
+  - [Usage](https://www.google.com/search?q=%23usage)
+  - [Project Structure](https://www.google.com/search?q=%23project-structure)
+  - [System Compatibility](https://www.google.com/search?q=%23system-compatibility)
 
-## Exemple
-[Voir la vidéo](exemple/video1.mp4)
+## Example
 
-## Fonctionnalités
+[Watch the video](https://www.google.com/search?q=exemple/video1.mp4)
 
-- Édition de texte simple et rapide
-- Interface graphique via `pygame`
-- Support de la lecture vidéo/audio intégrée via `pyvidplayer2`
+## Features
 
-## Dépendances
+  - Simple and fast text editing
+  - Graphical interface powered by `pygame`
+  - Integrated video/audio playback support via `pyvidplayer2`
+
+## Dependencies
 
 ### Python (via `requirements.txt`)
-- `pygame`
-- `pyvidplayer2`
-- `imageio[ffmpeg,pyav]`
 
-### Système
-- `portaudio` (nécessaire pour certaines bibliothèques audio)
-- `ffmpeg` (à installer manuellement)
+  - `pygame`
+  - `pyvidplayer2`
+  - `imageio[ffmpeg,pyav]`
+
+### System
+
+  - `portaudio` (required for certain audio libraries)
+  - `ffmpeg` (must be installed manually)
 
 ## Installation
 
-### Étape 1 – Cloner le dépôt
+### Step 1 – Clone the repository
 
 ```bash
 git clone https://github.com/Benahmed-Adam/notepad--.git
 cd notepad--
 ```
 
-### Étape 2 - Exécuter le script de démarrage
+### Step 2 – Run the startup script
 
 ```bash
 python start.py
 ```
 
-Le script détecte automatiquement les dépendances manquantes (normalement) et :
+The script automatically detects missing dependencies (usually) and will:
 
-- Propose d’installer `portaudio` si nécessaire
-- Installe les paquets Python
+  - Prompt to install `portaudio` if necessary
+  - Install the required Python packages
 
-### Étape 3 - Profiter
-Profitez de l'incroyable expérience que vous fournit NotePad--
+### Step 3 – Enjoy
 
-## Utilisation
-Une fois `main.py` lancé (automatiquement ou manuellement), l'éditeur de texte s'ouvre. Interface et fonctionnalités sont accessibles via l'interface graphique
+Experience the incredible writing journey provided by NotePad--.
 
-## Structure du projet
+## Usage
+
+Once `main.py` is launched (either automatically or manually), the text editor will open. All tools and features are accessible directly through the graphical interface.
+
+## Project Structure
+
 ```
-├── start.py               # Script de démarrage et d'installation
-├── main.py                # Point d’entrée de l’application
-├── requirements.txt       # Dépendances Python
-├── resources/             # Fichiers statiques (sons, images, vidéos)
+├── start.py               # Startup and installation script
+├── main.py                # Application entry point
+├── requirements.txt       # Python dependencies
+├── resources/             # Static files (sounds, images, videos)
 └── README.md              # Documentation
 └── etc...
 ```
 
-## Compatibilité système
-C'est censé marcher un peu partout...
+## System Compatibility
+
+It is supposed to work pretty much everywhere...
