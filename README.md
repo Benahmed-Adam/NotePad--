@@ -5,16 +5,16 @@ With NotePad--, writing text has never been this epic.
 
 ## Table of Contents
 
-  - [Features](https://www.google.com/search?q=%23features)
-  - [Dependencies](https://www.google.com/search?q=%23dependencies)
-  - [Installation](https://www.google.com/search?q=%23installation)
-  - [Usage](https://www.google.com/search?q=%23usage)
-  - [Project Structure](https://www.google.com/search?q=%23project-structure)
-  - [System Compatibility](https://www.google.com/search?q=%23system-compatibility)
+  - [Features](#features)
+  - [Dependencies](#dependencies)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Project Structure](#project-structure)
+  - [System Compatibility](#system-compatibility)
 
 ## Example
 
-[Watch the video](https://www.google.com/search?q=exemple/video1.mp4)
+[Watch the video](exemple/video1.mp4)
 
 ## Features
 
